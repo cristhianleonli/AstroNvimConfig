@@ -1,14 +1,13 @@
+local themevariant = function()
+  local hour = tonumber(os.date("%H"))
+  if (hour >= 7 and hour <= 16) then
+    return "dawn"
+  else
+    return "moon"
+  end
+end
+
 return {
-  -- You can also add new plugins here as well:
-  -- Add plugins, the lazy syntax
-  -- "andweeb/presence.nvim",
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "BufRead",
-  --   config = function()
-  --     require("lsp_signature").setup()
-  --   end,
-  -- },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -24,7 +23,7 @@ return {
     priority = false,
     config = function()
       require("rose-pine").setup({
-        variant = "dawn",
+        variant = themevariant(),
         styles = {
           italic = false,
         }
@@ -33,6 +32,10 @@ return {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
+  },
+  {
+    "rebelot/heirline.nvim",
     enabled = false,
   },
   {
@@ -48,5 +51,17 @@ return {
         },
       })
     end,
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    config = function()
+      require("lualine").setup({
+        options = {
+          theme = "everforest",
+        }
+      })
+    end,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
 }
